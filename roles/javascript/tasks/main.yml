@@ -1,0 +1,15 @@
+---
+- name: Install LTS version of Node.js
+  become: true
+  ansible.builtin.shell: |
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n)" -- lts
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Install n
+  become: true
+  community.general.npm:
+    name: n
+    state: present
+    global: true

@@ -1,0 +1,11 @@
+---
+- name: Clone fzf
+  ansible.builtin.git: # noqa: latest
+    repo: https://github.com/junegunn/fzf.git
+    dest: "{{ ansible_user_dir }}/.fzf"
+    depth: 1
+
+- name: Install fzf
+  ansible.builtin.command: "{{ ansible_user_dir }}/.fzf/install --all"
+  args:
+    creates: "{{ ansible_user_dir }}/.fzf/bin/fzf"

@@ -1,0 +1,9 @@
+---
+- name: Install extra packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - gnome-shell-extension-manager
+      - gnome-shell-extensions
+      - gnome-tweaks
+    state: present

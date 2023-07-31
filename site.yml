@@ -1,0 +1,37 @@
+---
+- name: System
+  hosts: all
+  gather_facts: true
+  pre_tasks:
+    - name: Sync package indexes
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+  roles:
+    - role: python
+    - role: core
+    - role: gnome-core
+    - role: extras
+    - role: gnome-extras
+    - role: patches
+    - role: rust
+    - role: keys
+    - role: gnome-keys
+    - role: material-shell
+    - role: tactile
+    - role: ibus
+    - role: google-chrome
+    - role: code
+    - role: alacritty
+    - role: nerd-fonts
+    - role: javascript
+    - role: zsh
+    - role: omz
+    - role: omz-p10k
+    - role: omz-plugins
+    - role: fzf
+    - role: ripgrep
+    - role: neovim
+    - role: bottom
+    - role: go
+    - role: java

@@ -1,0 +1,25 @@
+---
+- name: Disable Super + L
+  ansible.builtin.command: gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver "[]"
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Resize w/ right button
+  ansible.builtin.command: gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Ensure have gnome-extensions-cli
+  ansible.builtin.pip:
+    name: gnome-extensions-cli
+    state: present
+
+- name: Allow xremap to fetch focused app name using D-Bus
+  ansible.builtin.shell: |
+    {{ ansible_user_dir }}/.local/bin/gext --filesystem install xremap@k0kubun.com
+    {{ ansible_user_dir }}/.local/bin/gext enable xremap@k0kubun.com
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

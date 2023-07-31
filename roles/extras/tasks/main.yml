@@ -1,0 +1,14 @@
+---
+- name: Prepare EULA
+  become: true
+  ansible.builtin.debconf:
+    name: ttf-mscorefonts-installer
+    question: msttcorefonts/accepted-mscorefonts-eula
+    value: true
+    vtype: boolean
+
+- name: Install ubuntu-restricted-extras
+  become: true
+  ansible.builtin.apt:
+    name: ubuntu-restricted-extras
+    state: present

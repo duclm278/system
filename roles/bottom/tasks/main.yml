@@ -1,0 +1,5 @@
+---
+- name: Install bottom
+  ansible.builtin.command: cargo install bottom --locked
+  args:
+    creates: /home/{{ ansible_user_id }}/.cargo/bin/bottom

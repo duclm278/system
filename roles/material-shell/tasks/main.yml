@@ -1,0 +1,8 @@
+---
+- name: Install material-shell
+  ansible.builtin.shell: |
+    {{ ansible_user_dir }}/.local/bin/gext --filesystem install material-shell@papyelgringo
+    {{ ansible_user_dir }}/.local/bin/gext enable material-shell@papyelgringo
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

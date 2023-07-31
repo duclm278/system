@@ -1,0 +1,26 @@
+- name: Add bamboo-engine repository from PPA
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:bamboo-engine/ibus-bamboo
+    update_cache: true
+
+- name: Install ibus-bamboo
+  become: true
+  ansible.builtin.apt:
+    name: ibus-bamboo
+    state: present
+    install_recommends: true
+
+- name: Run post-installation tasks
+  ansible.builtin.shell: |
+    ibus restart
+    env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'Bamboo']" && \
+      gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
+    gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
+    gsettings set org.freedesktop.ibus.panel.emoji unicode-hotkey "[]"
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Z', 'XF86Keyboard']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "[]"
+    gsettings set org.freedesktop.ibus.general.hotkey triggers "['<Alt>Z', 'XF86Keyboard']"
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

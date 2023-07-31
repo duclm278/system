@@ -1,0 +1,18 @@
+---
+- name: Install zsh-autosuggestions
+  ansible.builtin.git: # noqa: latest
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    depth: 1
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git: # noqa: latest
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    depth: 1
+
+- name: Install zsh-vi-mode
+  ansible.builtin.git: # noqa: latest
+    repo: https://github.com/jeffreytse/zsh-vi-mode.git
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-vi-mode"
+    depth: 1

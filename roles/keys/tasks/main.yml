@@ -1,0 +1,13 @@
+---
+- name: Install xremap
+  ansible.builtin.shell: |
+    set -o pipefail
+    cargo install xremap --features gnome
+    sudo gpasswd -a $USER input
+    echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/input.rules
+  args:
+    creates: "{{ ansible_user_dir }}/.cargo/bin/xremap"
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

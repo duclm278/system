@@ -1,0 +1,12 @@
+---
+- name: Install zsh
+  become: true
+  ansible.builtin.apt:
+    name: zsh
+    state: present
+
+- name: Set default shell
+  become: true
+  ansible.builtin.shell: chsh -s $(which zsh)
+  register: result
+  changed_when: result.rc == 0

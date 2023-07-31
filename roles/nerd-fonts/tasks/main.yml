@@ -1,0 +1,26 @@
+---
+- name: Ensure fonts directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/share/fonts"
+    state: directory
+    mode: "0755"
+
+- name: Remove old fonts
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/share/fonts/{{ item | trim }} Nerd Font"
+    state: absent
+  loop: "{{ fonts }}"
+
+- name: Ensure font directories
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/share/fonts/{{ item | trim }} Nerd Font"
+    state: directory
+    mode: "0755"
+  loop: "{{ fonts }}"
+
+- name: Install fonts
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ item | trim }}.zip
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/{{ item | trim }} Nerd Font"
+    remote_src: true
+  loop: "{{ fonts }}"

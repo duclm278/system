@@ -1,0 +1,34 @@
+---
+- name: Ensure support for Python
+  ansible.builtin.pip:
+    name: pynvim
+    state: present
+
+- name: Ensure support for Node
+  become: true
+  community.general.npm:
+    name: neovim
+    state: present
+    global: true
+
+- name: Ensure support for clipboard
+  become: true
+  ansible.builtin.apt:
+    name:
+      - xclip
+      - xsel
+    state: present
+
+- name: Install stylua
+  community.general.cargo:
+    name: stylua
+    state: present
+
+- name: Install neovim via snap
+  become: true
+  ansible.builtin.command: snap install --classic neovim
+  args:
+    creates: /snap/bin/nvim
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

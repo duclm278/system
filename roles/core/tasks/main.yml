@@ -1,0 +1,16 @@
+---
+- name: Install scripting essentials
+  become: true
+  ansible.builtin.apt:
+    name:
+      - curl
+      - git
+      - unzip
+      - wget
+    state: present
+
+- name: Install xz-utils to extract deb package
+  become: true
+  ansible.builtin.apt:
+    name: xz-utils
+    state: present

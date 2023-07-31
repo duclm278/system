@@ -1,0 +1,6 @@
+---
+- name: Install p10k
+  ansible.builtin.git: # noqa: latest
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    depth: 1
