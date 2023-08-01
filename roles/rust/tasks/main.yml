@@ -4,9 +4,3 @@
     sh -c "$(curl -fsSL https://sh.rustup.rs)" -- -y
   args:
     creates: "{{ ansible_user_dir }}/.cargo/bin/rustup"
-
-- name: Install cargo via apt
-  become: true
-  ansible.builtin.apt:
-    name: cargo
-    state: present

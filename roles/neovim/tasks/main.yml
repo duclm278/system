@@ -20,20 +20,17 @@
     state: present
 
 - name: Install stylua
-  community.general.cargo:
-    name: stylua
-    state: present
+  ansible.builtin.command: "{{ ansible_user_dir }}/.cargo/bin/cargo install stylua"
+  args:
+    creates: "{{ ansible_user_dir }}/.cargo/bin/stylua"
 
 - name: Install bob-nvim
-  community.general.cargo:
-    name: bob-nvim
-    state: present
+  ansible.builtin.command: "{{ ansible_user_dir }}/.cargo/bin/cargo install bob-nvim"
+  args:
+    creates: "{{ ansible_user_dir }}/.cargo/bin/bob"
 
 - name: Install neovim via bob-nvim
   become: true
   ansible.builtin.command: "{{ ansible_user_dir }}/.cargo/bin/bob use stable"
   args:
     creates: "{{ ansible_user_dir }}/.local/share/bob/nvim-bin/nvim"
-  register: result
-  ignore_errors: true
-  changed_when: result.rc == 0
