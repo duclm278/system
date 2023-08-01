@@ -1,8 +1,12 @@
 - name: Add bamboo-engine repository from PPA
   become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:bamboo-engine/ibus-bamboo
-    update_cache: true
+  ansible.builtin.deb822_repository:
+    name: bamboo-engine
+    types: deb
+    uris: https://ppa.launchpadcontent.net/bamboo-engine/ibus-bamboo/ubuntu
+    suites: "{{ ansible_distribution_release }}"
+    components: main
+    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x5AD2E0B68A0409AD907D462D36ED424E9659D014
 
 - name: Install ibus-bamboo
   become: true
@@ -10,8 +14,9 @@
     name: ibus-bamboo
     state: present
     install_recommends: true
+    update_cache: true
 
-- name: Run post-installation tasks
+- name: Run post-installation task
   ansible.builtin.shell: |
     ibus restart
     env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'Bamboo']" && \

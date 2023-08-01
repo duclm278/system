@@ -1,16 +1,20 @@
 ---
 - name: Add alacritty repository from PPA
   become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:aslatter/ppa
-    update_cache: true
+  ansible.builtin.deb822_repository:
+    name: alacritty
+    types: deb
+    uris: https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu
+    suites: "{{ ansible_distribution_release }}"
+    components: main
+    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3A160895CC2CE253085D08A552B24DF7D43B5377
 
 - name: Install alacritty
   become: true
   ansible.builtin.apt:
     name: alacritty
     state: present
-    install_recommends: true
+    update_cache: true
 
 - name: Install python3-nautilus
   become: true
@@ -35,7 +39,7 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
-- name: Run post-installation tasks
+- name: Run post-installation task
   ansible.builtin.shell: |
     pip3 install nautilus-open-any-terminal
     nautilus -q
