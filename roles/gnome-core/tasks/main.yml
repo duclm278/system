@@ -1,4 +1,10 @@
 ---
+- name: Install gsettings
+  become: true
+  ansible.builtin.apt:
+    name: libglib2.0-bin
+    state: present
+
 - name: Install gnome-extensions-cli
   ansible.builtin.pip:
     name: gnome-extensions-cli
