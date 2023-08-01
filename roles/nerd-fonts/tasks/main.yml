@@ -1,5 +1,5 @@
 ---
-- name: Ensure fonts directory
+- name: Ensure having fonts directory
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts"
     state: directory
@@ -11,7 +11,7 @@
     state: absent
   loop: "{{ fonts }}"
 
-- name: Ensure font directories
+- name: Ensure having font subdirectories
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts/{{ item | trim }} Nerd Font"
     state: directory
