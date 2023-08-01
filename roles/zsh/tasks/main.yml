@@ -6,11 +6,12 @@
     state: present
 
 - name: Save whoami before becoming root
-  shell: whoami
+  ansible.builtin.command: whoami
   register: whoami
+  changed_when: false
 
 - name: Set default shell
   become: true
-  shell: "chsh -s $(which zsh) {{ whoami.stdout }}"
+  ansible.builtin.shell: "chsh -s $(which zsh) {{ whoami.stdout }}"
   register: result
   changed_when: result.rc == 0
