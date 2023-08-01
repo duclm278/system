@@ -1,0 +1,14 @@
+---
+- name: Install docker
+  become: true
+  ansible.builtin.shell: |
+    sh -c "$(curl -fsSL https://get.docker.com)"
+  args:
+    creates: /usr/bin/docker
+
+- name: Ensure docker-group added user {{ ansible_user_id }}
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true

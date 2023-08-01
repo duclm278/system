@@ -1,0 +1,6 @@
+---
+- name: Install copyq
+  become: true
+  ansible.builtin.apt:
+    name: copyq
+    state: present

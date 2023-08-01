@@ -1,0 +1,6 @@
+---
+- name: Install gparted
+  become: true
+  ansible.builtin.apt:
+    name: gparted
+    state: present

@@ -1,0 +1,6 @@
+---
+- name: Install pavucontrol
+  become: true
+  ansible.builtin.apt:
+    name: pavucontrol
+    state: present

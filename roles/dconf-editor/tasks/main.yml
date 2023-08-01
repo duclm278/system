@@ -1,0 +1,6 @@
+---
+- name: Install dconf-editor
+  become: true
+  ansible.builtin.apt:
+    name: dconf-editor
+    state: present

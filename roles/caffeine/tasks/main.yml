@@ -1,0 +1,6 @@
+---
+- name: Install caffeine
+  become: true
+  ansible.builtin.apt:
+    name: caffeine
+    state: present

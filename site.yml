@@ -32,6 +32,15 @@
     - role: fzf
     - role: ripgrep
     - role: neovim
-    - role: bottom
+    - role: dotfiles
     - role: go
+    - role: docker
+    - role: k8s
+    - role: bottom
+    - role: caffeine
+    - role: copyq
+    - role: dconf-editor
+    - role: gparted
+    - role: pavucontrol
+    - role: warp
     - role: java
