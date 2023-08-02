@@ -1,6 +1,6 @@
 ---
 - name: Install go
   ansible.builtin.shell: |
-    sh -c "$(curl -fsSL https://git.io/g-install)" -- y
+    sh -c "$(curl -fsSL https://git.io/g-install)" -- -y
   args:
     creates: "{{ ansible_user_dir }}/go/bin/go"
