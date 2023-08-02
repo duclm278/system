@@ -7,6 +7,12 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
+- name: Ensure having target directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config"
+    state: directory
+    mode: "0755"
+
 - name: Copy material-shell settings
   ansible.builtin.copy:
     src: material-shell.ini
