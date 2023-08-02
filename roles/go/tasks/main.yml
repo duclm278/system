@@ -1,5 +1,6 @@
+---
 - name: Install go
-  become: true
-  ansible.builtin.apt:
-    name: golang
-    state: present
+  ansible.builtin.shell: |
+    sh -c "$(curl -fsSL https://git.io/g-install)" -- y
+  args:
+    creates: "{{ ansible_user_dir }}/go/bin/go"
