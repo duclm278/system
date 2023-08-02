@@ -2,7 +2,7 @@ FROM ubuntu:22.04 AS base
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y sudo vim && \
+    apt-get install -y software-properties-common sudo vim && \
     apt-get install -y python3 python3-pip && \
     pip3 install ansible && \
     rm -rf /var/lib/apt/lists/*
