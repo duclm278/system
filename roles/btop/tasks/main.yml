@@ -1,0 +1,17 @@
+---
+- name: Install btop
+  ansible.builtin.apt:
+    name: btop
+    state: present
+
+- name: Ensure having target directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config"
+    state: directory
+    mode: "0755"
+
+- name: Copy btop settings
+  ansible.builtin.copy:
+    src: btop.conf
+    dest: "{{ ansible_user_dir }}/.config/btop.conf"
+    mode: "0644"

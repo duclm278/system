@@ -35,7 +35,7 @@
     - role: dotfiles
     - role: docker
     - role: k8s
-    - role: bottom
+    - role: btop
     - role: caffeine
     - role: copyq
     - role: dconf-editor
