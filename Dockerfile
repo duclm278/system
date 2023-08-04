@@ -16,4 +16,4 @@ WORKDIR /home/duc
 
 FROM duc
 COPY . .
-CMD ["sh", "-c", "ansible-playbook -i hosts $OPTS site.yml; bash"]
+CMD ["sh", "-c", "ansible-playbook -i hosts $OPTS local.yml; bash"]
