@@ -30,7 +30,9 @@
     - role: omz-p10k
     - role: omz-plugins
     - role: fzf
+    - role: git
     - role: ripgrep
+    - role: fd
     - role: neovim
     - role: dotfiles
     - role: docker
