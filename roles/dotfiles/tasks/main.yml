@@ -19,3 +19,10 @@
     compress: true
     rsync_opts:
       - "--exclude=.git*"
+
+- name: Enable sizer
+  ansible.builtin.shell: |
+    {{ ansible_user_dir }}/.local/bin/gext enable sizer@duclm278.github.io
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
