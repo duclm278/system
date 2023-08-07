@@ -1,6 +1,0 @@
----
-- name: Fix NVIDIA/egl-wayland
-  become: true
-  ansible.builtin.apt:
-    deb: http://security.ubuntu.com/ubuntu/pool/main/e/egl-wayland/libnvidia-egl-wayland1_1.1.10-1_amd64.deb
-  when: ansible_distribution_version == "22.04"

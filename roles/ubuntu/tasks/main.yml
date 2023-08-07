@@ -1,0 +1,25 @@
+---
+- name: Fix NVIDIA/egl-wayland
+  become: true
+  ansible.builtin.apt:
+    deb: http://security.ubuntu.com/ubuntu/pool/main/e/egl-wayland/libnvidia-egl-wayland1_1.1.10-1_amd64.deb
+  when: ansible_distribution_version == "22.04"
+
+- name: Fix Totem
+  become: true
+  ansible.builtin.apt:
+    name: gstreamer1.0-vaapi
+    state: absent
+  when: ansible_distribution_version == "22.04"
+
+- name: Disable Ubuntu Dock
+  ansible.builtin.command: gnome-extensions disable ubuntu-dock@ubuntu.com
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Disable Desktop Icons NG (DING)
+  ansible.builtin.command: gnome-extensions disable ding@rastersoft.com
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

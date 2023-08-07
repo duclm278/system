@@ -13,11 +13,12 @@
     - role: gnome-core
     - role: extras
     - role: gnome-extras
-    - role: patches
+    - role: ubuntu
     - role: rust
     - role: keys
     - role: gnome-keys
     - role: material-shell
+      tags: [never]
     - role: tactile
     - role: ibus
     - role: google-chrome
