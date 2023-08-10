@@ -17,8 +17,3 @@
     state: present
     update_cache: true
 
-- name: Register cloudflare-warp
-  ansible.builtin.command: warp-cli --accept-tos register
-  register: result
-  ignore_errors: true
-  changed_when: result.rc == 0
