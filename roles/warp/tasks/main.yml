@@ -16,4 +16,3 @@
     name: cloudflare-warp
     state: present
     update_cache: true
-
