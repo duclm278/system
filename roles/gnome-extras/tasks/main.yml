@@ -14,8 +14,8 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
-- name: Set Nautilus default sort order to type
-  ansible.builtin.command: gsettings set org.gnome.nautilus.preferences default-sort-order 'type'
-  register: result
-  ignore_errors: true
-  changed_when: result.rc == 0
+# - name: Set Nautilus default sort order to type
+#   ansible.builtin.command: gsettings set org.gnome.nautilus.preferences default-sort-order 'type'
+#   register: result
+#   ignore_errors: true
+#   changed_when: result.rc == 0
