@@ -42,7 +42,9 @@
     - role: caffeine
     - role: copyq
     - role: dconf-editor
+    - role: goldendict
     - role: gparted
+    - role: notepadqq
     - role: pavucontrol
     - role: warp
     - role: go

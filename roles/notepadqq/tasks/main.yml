@@ -1,0 +1,6 @@
+---
+- name: Install notepadqq
+  become: true
+  ansible.builtin.apt:
+    name: notepadqq
+    state: present

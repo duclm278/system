@@ -1,0 +1,6 @@
+---
+- name: Install goldendict
+  become: true
+  ansible.builtin.apt:
+    name: goldendict
+    state: present
