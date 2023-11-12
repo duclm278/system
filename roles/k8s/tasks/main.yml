@@ -1,17 +1,44 @@
 ---
 - name: Add kubernetes repository
   become: true
-  ansible.builtin.deb822_repository:
-    name: kubernetes
-    types: deb
-    uris: https://apt.kubernetes.io/
-    suites: kubernetes-xenial
-    components: main
-    signed_by: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+  ansible.builtin.shell: |
+    set -o pipefail
+    RELEASE=$(curl -fsSL https://dl.k8s.io/release/stable.txt) && \
+      RELEASE=${RELEASE%.*}
+    curl -fsSL "https://pkgs.k8s.io/core:/stable:/${RELEASE}/deb/Release.key" |
+      sudo gpg --yes --dearmor --output /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${RELEASE}/deb/ /" |
+      sudo tee /etc/apt/sources.list.d/kubernetes.list
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
 
 - name: Install kubectl
   become: true
   ansible.builtin.apt:
     name: kubectl
+    state: present
+    update_cache: true
+
+- name: Add helm repository
+  become: true
+  ansible.builtin.shell: |
+    set -o pipefail
+    curl -fsSL https://baltocdn.com/helm/signing.asc |
+      sudo gpg --yes --dearmor --output /usr/share/keyrings/helm.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" |
+      sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Install helm
+  become: true
+  ansible.builtin.apt:
+    name: helm
     state: present
     update_cache: true

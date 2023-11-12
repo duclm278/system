@@ -35,6 +35,7 @@
     - role: ripgrep
     - role: fd
     - role: neovim
+    - role: tmux
     - role: dotfiles
     - role: docker
     - role: k8s
@@ -47,5 +48,6 @@
     - role: notepadqq
     - role: pavucontrol
     - role: warp
+    - role: zoom
     - role: go
     - role: java

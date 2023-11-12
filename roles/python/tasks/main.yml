@@ -6,3 +6,25 @@
       - python3
       - python3-pip
     state: present
+
+- name: Create Miniconda directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/miniconda3"
+    state: directory
+    mode: "0755"
+
+- name: Download Miniconda installer
+  ansible.builtin.get_url:
+    url: "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+    dest: "{{ ansible_user_dir }}/miniconda3/miniconda.sh"
+    mode: "0755"
+
+- name: Run Miniconda installer
+  ansible.builtin.command: "bash {{ ansible_user_dir }}/miniconda3/miniconda.sh -b -u -p {{ ansible_user_dir }}/miniconda3"
+  args:
+    creates: "{{ ansible_user_dir }}/miniconda3/bin/conda"
+
+- name: Remove Miniconda installer
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/miniconda3/miniconda.sh"
+    state: absent

@@ -3,13 +3,14 @@
   become: true
   ansible.builtin.apt:
     name:
-      - curl
       - git
+      - zip
       - unzip
+      - curl
       - wget
     state: present
 
-- name: Install xz-utils to extract deb package
+- name: Install xz-utils for deb822_repository
   become: true
   ansible.builtin.apt:
     name: xz-utils
