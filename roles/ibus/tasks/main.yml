@@ -1,3 +1,4 @@
+---
 - name: Add bamboo-engine repository from PPA
   become: true
   ansible.builtin.deb822_repository:
@@ -19,7 +20,7 @@
 - name: Run post-installation task
   ansible.builtin.shell: |
     ibus restart
-    env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'Bamboo']" && \
+    env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && \
       gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
     gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
     gsettings set org.freedesktop.ibus.panel.emoji unicode-hotkey "[]"
