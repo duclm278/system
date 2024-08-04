@@ -1,0 +1,6 @@
+---
+- name: Install calibre
+  become: true
+  ansible.builtin.apt:
+    name: calibre
+    state: present

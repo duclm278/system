@@ -6,6 +6,12 @@
     state: present
 
 - name: Install gnome-extensions-cli
-  ansible.builtin.pip:
-    name: gnome-extensions-cli
-    state: present
+  ansible.builtin.shell: |
+    set -o pipefail
+    pipx install --include-deps gnome-extensions-cli
+  args:
+    creates: "{{ ansible_user_dir }}/.local/bin/gext"
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

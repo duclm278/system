@@ -1,6 +1,11 @@
 ---
-- name: Install omz
+- name: Install oh-my-zsh
   ansible.builtin.shell: |
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -- --unattended
+    set -o pipefail
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -- --unattended
   args:
     creates: "{{ ansible_user_dir }}/.oh-my-zsh"
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

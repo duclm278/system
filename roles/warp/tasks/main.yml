@@ -1,17 +1,14 @@
 ---
 - name: Add cloudflare-warp repository
   become: true
-  ansible.builtin.shell: |
-    set -o pipefail
-    curl -fsSL "https://pkg.cloudflareclient.com/pubkey.gpg" |
-      sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" |
-      sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-  args:
-    executable: /bin/bash
-  register: result
-  ignore_errors: true
-  changed_when: result.rc == 0
+  ansible.builtin.deb822_repository:
+    name: cloudflare-warp
+    types: deb
+    uris: https://pkg.cloudflareclient.com
+    # suites: "{{ ansible_distribution_release }}"
+    suites: jammy
+    components: main
+    signed_by: https://pkg.cloudflareclient.com/pubkey.gpg
 
 - name: Install cloudflare-warp
   become: true

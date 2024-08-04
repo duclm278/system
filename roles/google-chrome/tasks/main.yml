@@ -1,5 +1,5 @@
 ---
-- name: Install google-chrome
+- name: Install google-chrome-stable
   become: true
   ansible.builtin.apt:
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

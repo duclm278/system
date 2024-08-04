@@ -1,12 +1,18 @@
 ---
 - name: Install sdkman
   ansible.builtin.shell: |
+    set -o pipefail
     bash -c "$(curl -fsSL https://get.sdkman.io)"
   args:
     creates: "{{ ansible_user_dir }}/.sdkman/bin/sdkman-init.sh"
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
 
 - name: Install java
   ansible.builtin.shell: |
+    set -o pipefail
     source {{ ansible_user_dir }}/.sdkman/bin/sdkman-init.sh
     sdk install java
   args:

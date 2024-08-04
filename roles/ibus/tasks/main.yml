@@ -1,8 +1,8 @@
 ---
-- name: Add bamboo-engine repository from PPA
+- name: Add ibus-bamboo repository from PPA
   become: true
   ansible.builtin.deb822_repository:
-    name: bamboo-engine
+    name: ibus-bamboo
     types: deb
     uris: https://ppa.launchpadcontent.net/bamboo-engine/ibus-bamboo/ubuntu
     suites: "{{ ansible_distribution_release }}"
@@ -19,6 +19,7 @@
 
 - name: Run post-installation task
   ansible.builtin.shell: |
+    set -o pipefail
     ibus restart
     env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && \
       gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
@@ -27,6 +28,8 @@
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Z', 'XF86Keyboard']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "[]"
     gsettings set org.freedesktop.ibus.general.hotkey triggers "['<Alt>Z', 'XF86Keyboard']"
+  args:
+    executable: /bin/bash
   register: result
   ignore_errors: true
   changed_when: result.rc == 0

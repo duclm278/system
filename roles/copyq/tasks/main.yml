@@ -4,3 +4,15 @@
   ansible.builtin.apt:
     name: copyq
     state: present
+
+- name: Ensure having autostart directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/autostart"
+    state: directory
+    mode: "0755"
+
+- name: Create copyq.desktop
+  ansible.builtin.copy:
+    src: copyq.desktop
+    dest: "{{ ansible_user_dir }}/.config/autostart/copyq.desktop"
+    mode: "0644"

@@ -2,9 +2,14 @@
 - name: Install docker
   become: true
   ansible.builtin.shell: |
-    sh -c "$(curl -fsSL https://get.docker.com)"
+    set -o pipefail
+    bash -c "$(curl -fsSL https://get.docker.com)"
   args:
     creates: /usr/bin/docker
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
 
 - name: Ensure docker-group added user {{ ansible_user_id }}
   become: true
@@ -12,3 +17,18 @@
     name: "{{ ansible_user_id }}"
     groups: docker
     append: true
+
+- name: Install lazydocker
+  ansible.builtin.shell: |
+    set -o pipefail
+    LAZYDOCKER_VERSION=$(curl -fsSL "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazydocker.tar.gz lazydocker
+    sudo install lazydocker /usr/local/bin
+    rm lazydocker.tar.gz lazydocker
+  args:
+    creates: /usr/local/bin/lazydocker
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

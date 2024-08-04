@@ -1,13 +1,16 @@
 ---
 - name: Install material-shell
   ansible.builtin.shell: |
+    set -o pipefail
     {{ ansible_user_dir }}/.local/bin/gext --filesystem install material-shell@papyelgringo
     {{ ansible_user_dir }}/.local/bin/gext enable material-shell@papyelgringo
+  args:
+    executable: /bin/bash
   register: result
   ignore_errors: true
   changed_when: result.rc == 0
 
-- name: Ensure having target directory
+- name: Ensure having config directory
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config"
     state: directory
@@ -21,7 +24,10 @@
 
 - name: Load material-shell settings
   ansible.builtin.shell: |
+    set -o pipefail
     dconf load /org/gnome/shell/extensions/materialshell/ < ~/.config/material-shell.ini
+  args:
+    executable: /bin/bash
   register: result
   ignore_errors: true
   changed_when: result.rc == 0

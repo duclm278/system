@@ -1,5 +1,5 @@
 ---
-- name: System
+- name: Always
   hosts: all
   gather_facts: true
   pre_tasks:
@@ -8,46 +8,59 @@
       ansible.builtin.apt:
         update_cache: true
   roles:
-    - role: python
-    - role: core
-    - role: gnome-core
-    - role: extras
-    - role: gnome-extras
-    - role: ubuntu
-    - role: rust
+    - role: python # python3, python3-pip, miniconda3
+    - role: core # git, zip, unzip, curl, wget, xz-utils, python3-debian
+    - role: gnome-core # gsettings, gnome-extensions-cli
+    - role: extras # restricted-extras
+    - role: gnome-extras # dconf-editor, gnome-shell-extension-manager, gnome-shell-extensions, gnome-tweaks
+    - role: patches # patches
+    - role: ibus # ibus-bamboo
+    - role: google-chrome # google-chrome
+    - role: code # code
+    - role: nerd-fonts # nerd-fonts
+    - role: rust # rustup
+    - role: node # n, node
+    - role: go # g, go
+    - role: java # sdkman, java
+    - role: zsh # zsh
+    - role: omz # oh-my-zsh
+    - role: omz-p10k # powerlevel10k
+    - role: omz-plugins # zsh-autosuggestions, zsh-syntax-highlighting, zsh-vi-mode
+    - role: fzf # fzf
+    - role: git # git, lazygit
+    - role: ripgrep # ripgrep
+    - role: fd # fd-find
+    - role: neovim # neovim, bob-nvim
+    - role: tmux # tmux
+    - role: dotfiles # dotfiles, lazyvim
+    - role: docker # docker, lazydocker
+    - role: k8s # kubectl, helm
+    - role: btop # btop
+    - role: caffeine # caffeine
+    - role: calibre # calibre
+    - role: copyq # copyq
+    - role: flameshot # flameshot
+    - role: gparted # gparted
+    - role: notepadqq # notepadqq
+    - role: pavucontrol # pavucontrol
+  tags: [always]
+
+- name: Opinionated
+  hosts: all
+  gather_facts: true
+  pre_tasks:
+    - name: Sync package indexes
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+  roles:
+    - role: gnome-ui
     - role: keys
     - role: gnome-keys
-    - role: material-shell
-      tags: [never]
     - role: tactile
-    - role: ibus
-    - role: google-chrome
-    - role: code
     - role: alacritty
-    - role: nerd-fonts
-    - role: javascript
-    - role: zsh
-    - role: omz
-    - role: omz-p10k
-    - role: omz-plugins
-    - role: fzf
-    - role: git
-    - role: ripgrep
-    - role: fd
-    - role: neovim
-    - role: tmux
-    - role: dotfiles
-    - role: docker
-    - role: k8s
-    - role: btop
-    - role: caffeine
-    - role: copyq
-    - role: dconf-editor
+    - role: sizer
     - role: goldendict
-    - role: gparted
-    - role: notepadqq
-    - role: pavucontrol
     - role: warp
     - role: zoom
-    - role: go
-    - role: java
+  tags: [opinionated]

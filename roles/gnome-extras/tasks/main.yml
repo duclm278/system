@@ -3,19 +3,8 @@
   become: true
   ansible.builtin.apt:
     name:
+      - dconf-editor
       - gnome-shell-extension-manager
       - gnome-shell-extensions
       - gnome-tweaks
     state: present
-
-- name: Set text scaling factor to 1.17
-  ansible.builtin.command: gsettings set org.gnome.desktop.interface text-scaling-factor 1.17
-  register: result
-  ignore_errors: true
-  changed_when: result.rc == 0
-
-# - name: Set Nautilus default sort order to type
-#   ansible.builtin.command: gsettings set org.gnome.nautilus.preferences default-sort-order 'type'
-#   register: result
-#   ignore_errors: true
-#   changed_when: result.rc == 0

@@ -1,0 +1,13 @@
+---
+- name: Fix nvidia/egl-wayland
+  become: true
+  ansible.builtin.apt:
+    deb: http://security.ubuntu.com/ubuntu/pool/main/e/egl-wayland/libnvidia-egl-wayland1_1.1.10-1_amd64.deb
+  when: ansible_distribution_version == "22.04"
+
+- name: Fix totem
+  become: true
+  ansible.builtin.apt:
+    name: gstreamer1.0-vaapi
+    state: absent
+  when: ansible_distribution_version == "22.04"

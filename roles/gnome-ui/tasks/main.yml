@@ -1,0 +1,24 @@
+---
+- name: Set text scaling factor to 1.17
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface text-scaling-factor 1.17
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Disable Ubuntu Dock
+  ansible.builtin.command: gnome-extensions disable ubuntu-dock@ubuntu.com
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Disable Desktop Icons NG (DING)
+  ansible.builtin.command: gnome-extensions disable ding@rastersoft.com
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+# - name: Set rautilus default sort order to type
+#   ansible.builtin.command: gsettings set org.gnome.nautilus.preferences default-sort-order 'type'
+#   register: result
+#   ignore_errors: true
+#   changed_when: result.rc == 0

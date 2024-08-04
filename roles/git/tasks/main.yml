@@ -1,4 +1,9 @@
 ---
+- name: Install git
+  ansible.builtin.apt:
+    name: git
+    state: present
+
 - name: Install lazygit
   ansible.builtin.shell: |
     set -o pipefail

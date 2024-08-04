@@ -1,6 +1,6 @@
 ---
-- name: Install dconf-editor
+- name: Install flameshot
   become: true
   ansible.builtin.apt:
-    name: dconf-editor
+    name: flameshot
     state: present

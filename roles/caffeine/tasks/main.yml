@@ -4,3 +4,15 @@
   ansible.builtin.apt:
     name: caffeine
     state: present
+
+- name: Ensure having autostart directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/autostart"
+    state: directory
+    mode: "0755"
+
+- name: Ensure having caffeine.desktop
+  ansible.builtin.copy:
+    src: caffeine.desktop
+    dest: "{{ ansible_user_dir }}/.config/autostart/caffeine.desktop"
+    mode: "0644"

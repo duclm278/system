@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=goldendict
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=GoldenDict
+Name=GoldenDict
+Comment[en_US]=
+Comment=

@@ -4,10 +4,12 @@
   ansible.builtin.debconf:
     name: ttf-mscorefonts-installer
     question: msttcorefonts/accepted-mscorefonts-eula
-    value: true
+    # value: true
+    # https://github.com/ansible/ansible/issues/83594
+    value: "true"
     vtype: boolean
 
-- name: Install ubuntu-restricted-extras
+- name: Install restricted-extras
   become: true
   ansible.builtin.apt:
     name: ubuntu-restricted-extras

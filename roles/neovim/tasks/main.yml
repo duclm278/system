@@ -1,10 +1,16 @@
 ---
 - name: Ensure support for Python
-  ansible.builtin.pip:
-    name: pynvim
-    state: present
+  ansible.builtin.shell: |
+    set -o pipefail
+    pipx install --include-deps pynvim
+  args:
+    create: "{{ ansible_user_dir }}/.local/bin/pynvim"
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
 
-- name: Ensure support for Node
+- name: Ensure support for Node.js
   become: true
   community.general.npm:
     name: neovim
