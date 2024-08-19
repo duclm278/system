@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=goldendict
+Exec=sh -c "sleep 4; goldendict"
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

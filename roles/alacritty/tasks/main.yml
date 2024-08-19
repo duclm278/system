@@ -8,13 +8,14 @@
     suites: "{{ ansible_distribution_release }}"
     components: main
     signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3A160895CC2CE253085D08A552B24DF7D43B5377
+  when: ansible_distribution_version == "22.04"
 
 - name: Install alacritty
   become: true
   ansible.builtin.apt:
     name: alacritty
     state: present
-    update_cache: true
+    update_cache: "{{ ansible_distribution_version == '22.04' }}"
 
 - name: Install python3-nautilus
   become: true
@@ -40,10 +41,13 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
+- name: Install nautilus-open-any-terminal
+  ansible.builtin.apt:
+    deb: https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/download/0.6.0/nautilus-extension-any-terminal_0.6.0-1_all.deb
+
 - name: Run post-installation task
   ansible.builtin.shell: |
     set -o pipefail
-    pipx install --include-deps nautilus-open-any-terminal
     nautilus -q
     mkdir -p {{ ansible_user_dir }}/.local/share/glib-2.0/schemas/
     glib-compile-schemas {{ ansible_user_dir }}/.local/share/glib-2.0/schemas/

@@ -41,11 +41,11 @@
     - role: copyq # copyq
     - role: flameshot # flameshot
     - role: gparted # gparted
-    - role: notepadqq # notepadqq
     - role: pavucontrol # pavucontrol
+    - role: sublime # sublime-text
   tags: [always]
 
-- name: Opinionated
+- name: Others
   hosts: all
   gather_facts: true
   pre_tasks:
@@ -63,4 +63,4 @@
     - role: goldendict
     - role: warp
     - role: zoom
-  tags: [opinionated]
+  tags: [others]
