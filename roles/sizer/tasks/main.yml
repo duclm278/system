@@ -1,10 +1,31 @@
 ---
-- name: Enable sizer
+- name: Remove old sizer
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/sizer@duclm278.github.io"
+    state: absent
+
+- name: Enable new sizer
   ansible.builtin.shell: |
     set -o pipefail
+    cp -rf {{ ansible_user_dir }}/.local/share/gnome-shell/extensions/42/sizer@duclm278.github.io \
+      {{ ansible_user_dir }}/.local/share/gnome-shell/extensions
     {{ ansible_user_dir }}/.local/bin/gext enable sizer@duclm278.github.io
   args:
     executable: /bin/bash
   register: result
   ignore_errors: true
   changed_when: result.rc == 0
+  when: ansible_distribution_version == "22.04"
+
+- name: Enable new sizer
+  ansible.builtin.shell: |
+    set -o pipefail
+    cp -rf {{ ansible_user_dir }}/.local/share/gnome-shell/extensions/46/sizer@duclm278.github.io \
+      {{ ansible_user_dir }}/.local/share/gnome-shell/extensions
+    {{ ansible_user_dir }}/.local/bin/gext enable sizer@duclm278.github.io
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+  when: ansible_distribution_version == "24.04"
