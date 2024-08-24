@@ -41,7 +41,14 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
+- name: Uninstall nautilus-extension-gnome-terminal
+  become: true
+  ansible.builtin.apt:
+    name: nautilus-extension-gnome-terminal
+    state: absent
+
 - name: Install nautilus-open-any-terminal
+  become: true
   ansible.builtin.apt:
     deb: https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/download/0.6.0/nautilus-extension-any-terminal_0.6.0-1_all.deb
 

@@ -22,12 +22,23 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
+# - name: Run post-installation task
+#   ansible.builtin.shell: |
+#     set -o pipefail
+#     glib-compile-schemas {{ ansible_user_dir }}/.local/share/glib-2.0/schemas/
+#     gsettings set org.gnome.shell.extensions.tactile col-0 2
+#     gsettings set org.gnome.shell.extensions.tactile col-3 2
+#   args:
+#     executable: /bin/bash
+#   register: result
+#   ignore_errors: true
+#   changed_when: result.rc == 0
+
 - name: Run post-installation task
   ansible.builtin.shell: |
     set -o pipefail
-    # glib-compile-schemas {{ ansible_user_dir }}/.local/share/glib-2.0/schemas/
-    GSETTINGS_SCHEMA_DIR={{ ansible_user_dir }}/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas \
-      glib-compile-schemas {{ ansible_user_dir }}/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas
+    glib-compile-schemas --targetdir={{ ansible_user_dir }}/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas \
+      {{ ansible_user_dir }}/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas
     gsettings set org.gnome.shell.extensions.tactile col-0 2
     gsettings set org.gnome.shell.extensions.tactile col-3 2
   args:
