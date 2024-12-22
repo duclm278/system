@@ -57,7 +57,7 @@
     - role: gnome-ui
     - role: keys
     - role: gnome-keys
-    - role: tactile
+    # - role: tactile
     - role: alacritty
     - role: sizer
     - role: goldendict
