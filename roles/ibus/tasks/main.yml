@@ -23,11 +23,11 @@
     ibus restart
     env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && \
       gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
-    gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
+    gsettings set org.freedesktop.ibus.panel.emoji hotkey "['<Super>period']"
     gsettings set org.freedesktop.ibus.panel.emoji unicode-hotkey "[]"
-    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Z', 'XF86Keyboard']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Super>space', 'XF86Keyboard']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "[]"
-    gsettings set org.freedesktop.ibus.general.hotkey triggers "['<Alt>Z', 'XF86Keyboard']"
+    gsettings set org.freedesktop.ibus.general.hotkey triggers "['<Super>space', 'XF86Keyboard']"
   args:
     executable: /bin/bash
   register: result
