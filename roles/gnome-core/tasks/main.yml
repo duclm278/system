@@ -8,7 +8,7 @@
 - name: Install gnome-extensions-cli
   ansible.builtin.shell: |
     set -o pipefail
-    pipx install --include-deps gnome-extensions-cli
+    pipx install --system-site-packages gnome-extensions-cli
   args:
     creates: "{{ ansible_user_dir }}/.local/bin/gext"
     executable: /bin/bash
