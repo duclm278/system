@@ -10,11 +10,8 @@
   roles:
     - role: python # python3, python3-pip, miniconda3
     - role: core # git, zip, unzip, curl, wget, xz-utils, python3-debian
-    - role: gnome-core # gsettings, gnome-extensions-cli
     - role: extras # restricted-extras
-    - role: gnome-extras # dconf-editor, gnome-shell-extension-manager, gnome-shell-extensions, gnome-tweaks
     - role: patches # patches
-    - role: ibus # ibus-bamboo
     - role: google-chrome # google-chrome
     - role: code # code
     - role: nerd-fonts # nerd-fonts
@@ -35,15 +32,28 @@
     - role: dotfiles # dotfiles, lazyvim
     - role: docker # docker, lazydocker
     - role: k8s # kubectl, helm
-    - role: btop # btop
-    - role: caffeine # caffeine
-    - role: calibre # calibre
     - role: copyq # copyq
-    - role: flameshot # flameshot
-    - role: gparted # gparted
     - role: pavucontrol # pavucontrol
-    - role: sublime # sublime-text
   tags: [always]
+
+- name: GNOME
+  hosts: all
+  gather_facts: true
+  pre_tasks:
+    - name: Sync package indexes
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+  roles:
+    - role: gnome-core # gsettings, gnome-extensions-cli
+    - role: gnome-extras # dconf-editor, gnome-shell-extension-manager, gnome-shell-extensions, gnome-tweaks
+    - role: gnome-ui
+    - role: gnome-keys
+    - role: ibus # ibus-bamboo
+    - role: sizer
+    # - role: tactile
+    - role: xremap-gnome # xremap
+  tags: [gnome]
 
 - name: Others
   hosts: all
@@ -54,13 +64,14 @@
       ansible.builtin.apt:
         update_cache: true
   roles:
-    - role: gnome-ui
-    - role: keys
-    - role: gnome-keys
-    # - role: tactile
-    - role: alacritty
-    - role: sizer
-    - role: goldendict
-    - role: warp
-    - role: zoom
+    - role: alacritty # alacritty
+    - role: btop # btop
+    - role: caffeine # caffeine
+    - role: calibre # calibre
+    - role: flameshot # flameshot
+    - role: goldendict # goldendict
+    - role: gparted # gparted
+    - role: sublime # sublime-text
+    - role: warp # warp
+    - role: zoom # zoom
   tags: [others]

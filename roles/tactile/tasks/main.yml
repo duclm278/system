@@ -10,6 +10,18 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
+- name: Ensure having config directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config"
+    state: directory
+    mode: "0755"
+
+- name: Copy tactile settings
+  ansible.builtin.copy:
+    src: tactile.ini
+    dest: "{{ ansible_user_dir }}/.config/tactile.ini"
+    mode: "0644"
+
 - name: Copy schema file
   ansible.builtin.shell: |
     set -o pipefail
@@ -22,27 +34,9 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
-# - name: Run post-installation task
-#   ansible.builtin.shell: |
-#     set -o pipefail
-#     glib-compile-schemas {{ ansible_user_dir }}/.local/share/glib-2.0/schemas/
-#     gsettings set org.gnome.shell.extensions.tactile col-0 2
-#     gsettings set org.gnome.shell.extensions.tactile col-3 2
-#   args:
-#     executable: /bin/bash
-#   register: result
-#   ignore_errors: true
-#   changed_when: result.rc == 0
-
-- name: Run post-installation task
+- name: Load tactile settings
   ansible.builtin.shell: |
-    set -o pipefail
-    glib-compile-schemas --targetdir={{ ansible_user_dir }}/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas \
-      {{ ansible_user_dir }}/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas
-    gsettings set org.gnome.shell.extensions.tactile col-0 2
-    gsettings set org.gnome.shell.extensions.tactile col-3 2
-  args:
-    executable: /bin/bash
+    dconf load /org/gnome/shell/extensions/tactile/ < ~/.config/tactile.ini
   register: result
   ignore_errors: true
   changed_when: result.rc == 0
