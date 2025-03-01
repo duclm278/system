@@ -64,7 +64,7 @@
       ansible.builtin.apt:
         update_cache: true
   roles:
-    - role: alacritty # alacritty
+    - role: alacritty-gnome # alacritty
     - role: btop # btop
     - role: caffeine # caffeine
     - role: calibre # calibre
