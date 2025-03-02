@@ -8,11 +8,11 @@
       ansible.builtin.apt:
         update_cache: true
   roles:
-    - role: python # python3, python3-pip, miniconda3
+    - role: python # python3, python3-pip, pipx, miniconda3
     - role: core # git, zip, unzip, curl, wget, xz-utils, python3-debian
     - role: extras # restricted-extras
-    - role: patches # patches
-    - role: google-chrome # google-chrome
+    - role: patches
+    - role: chrome # google-chrome
     - role: code # code
     - role: nerd-fonts # nerd-fonts
     - role: rust # rustup
@@ -26,8 +26,8 @@
     - role: fzf # fzf
     - role: git # git, lazygit
     - role: ripgrep # ripgrep
-    - role: fd # fd-find
-    - role: neovim # neovim, bob-nvim
+    - role: fd # fd
+    - role: neovim # neovim, bob
     - role: tmux # tmux
     - role: dotfiles # dotfiles, lazyvim
     - role: docker # docker, lazydocker
@@ -47,11 +47,12 @@
   roles:
     - role: gnome-core # gsettings, gnome-extensions-cli
     - role: gnome-extras # dconf-editor, gnome-shell-extension-manager, gnome-shell-extensions, gnome-tweaks
-    - role: gnome-ui
+    - role: gnome-input # ibus-bamboo
     - role: gnome-keys
-    - role: ibus # ibus-bamboo
+    - role: gnome-ui
     - role: sizer
     # - role: tactile
+    - role: alacritty-gnome # alacritty, python3-nautilus, nautilus-open-any-terminal
     - role: xremap-gnome # xremap
   tags: [gnome]
 
@@ -64,7 +65,6 @@
       ansible.builtin.apt:
         update_cache: true
   roles:
-    - role: alacritty-gnome # alacritty
     - role: btop # btop
     - role: caffeine # caffeine
     - role: calibre # calibre
@@ -72,6 +72,6 @@
     - role: goldendict # goldendict
     - role: gparted # gparted
     - role: sublime # sublime-text
-    - role: warp # warp
+    - role: warp # cloudflare-warp
     - role: zoom # zoom
   tags: [others]

@@ -1,5 +1,5 @@
 ---
-- name: Install fd
+- name: Install fd-find
   become: true
   ansible.builtin.apt:
     name: fd-find
@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
 
-- name: Add link to fd
+- name: Add link to fd-find
   ansible.builtin.file:
     src: /usr/bin/fdfind
     dest: "{{ ansible_user_dir }}/.local/bin/fd"
