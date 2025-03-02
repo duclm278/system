@@ -50,6 +50,7 @@
     - role: gnome-input # ibus-bamboo
     - role: gnome-keys
     - role: gnome-ui
+    - role: dash-to-dock
     - role: sizer
     # - role: tactile
     - role: alacritty-gnome # alacritty, python3-nautilus, nautilus-open-any-terminal

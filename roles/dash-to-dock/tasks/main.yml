@@ -1,0 +1,11 @@
+---
+- name: Install dash-to-dock
+  ansible.builtin.shell: |
+    set -o pipefail
+    {{ ansible_user_dir }}/.local/bin/gext --filesystem install dash-to-dock@micxgx.gmail.com
+    {{ ansible_user_dir }}/.local/bin/gext enable dash-to-dock@micxgx.gmail.com
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
