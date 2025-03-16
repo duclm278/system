@@ -5,8 +5,8 @@
     name: cloudflare-warp
     types: deb
     uris: https://pkg.cloudflareclient.com
-    # suites: "{{ ansible_distribution_release }}"
-    suites: jammy
+    suites: "{{ ansible_distribution_release }}"
+    # suites: noble
     components: main
     signed_by: https://pkg.cloudflareclient.com/pubkey.gpg
 
