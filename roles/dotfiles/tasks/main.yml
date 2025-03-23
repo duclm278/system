@@ -1,8 +1,8 @@
 ---
 - name: Clone dotfiles
   ansible.builtin.git: # noqa: latest
-    repo: "{{ dotfiles }}"
-    dest: "{{ ansible_user_dir }}/Downloads/Repos/dotfiles"
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_dest }}"
     depth: 1
 
 - name: Ensure having rsync
@@ -13,7 +13,7 @@
 
 - name: Rsync dotfiles
   ansible.posix.synchronize:
-    src: "{{ ansible_user_dir }}/Downloads/Repos/dotfiles/"
+    src: "{{ dotfiles_dest }}/"
     dest: "{{ ansible_user_dir }}/"
     archive: true
     compress: true

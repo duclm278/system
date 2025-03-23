@@ -11,7 +11,7 @@ RUN apt-get update && \
 FROM base AS sudo
 RUN echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ubuntu
-WORKDIR /home/ubuntu
+WORKDIR /home/ubuntu/system
 
 FROM sudo
 COPY . .

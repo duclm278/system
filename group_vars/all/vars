@@ -1,5 +1,6 @@
 ---
-dotfiles: https://github.com/duclm278/dotfiles
+dotfiles_repo: https://github.com/duclm278/dotfiles
+dotfiles_dest: "{{ ansible_user_dir }}/.dotfiles"
+# See: https://github.com/ryanoasis/nerd-fonts/releases/latest
 fonts:
-  - FiraCode
   - JetBrainsMono
