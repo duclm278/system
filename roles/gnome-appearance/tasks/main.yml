@@ -1,4 +1,16 @@
 ---
+- name: Install IBM Plex fonts
+  become: true
+  ansible.builtin.package:
+    name: fonts-ibm-plex
+    state: present
+
+- name: Set font to IBM Plex
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface font-name 'IBM Plex Sans 11'
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
 - name: Set text scaling factor to 1.17
   ansible.builtin.command: gsettings set org.gnome.desktop.interface text-scaling-factor 1.17
   register: result
