@@ -1,0 +1,6 @@
+---
+- name: Install yazi
+  become: true
+  community.general.snap:
+    name: yazi
+    classic: true

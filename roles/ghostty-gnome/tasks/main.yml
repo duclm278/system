@@ -1,0 +1,17 @@
+---
+- name: Install ghostty
+  ansible.builtin.shell: |
+    set -o pipefail
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+  args:
+    creates: /usr/bin/ghostty
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Install python3-nautilus
+  become: true
+  ansible.builtin.apt:
+    name: python3-nautilus
+    state: present
