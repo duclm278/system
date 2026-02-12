@@ -4,3 +4,12 @@ dotfiles_dest: "{{ ansible_user_dir }}/.dotfiles"
 # See: https://github.com/ryanoasis/nerd-fonts/releases/latest
 fonts:
   - JetBrainsMono
+gnome_extensions:
+  - advanced-alt-tab@G-dH.github.com
+  - AlphabeticalAppGrid@stuarthayhurst
+  - Battery-Health-Charging@maniacx.github.com
+  - dash-to-dock@micxgx.gmail.com
+  - just-perfection-desktop@just-perfection
+  - space-bar@luchrioh
+  - tactile@lundal.io
+  - Vitals@CoreCoding.com

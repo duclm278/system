@@ -1,0 +1,21 @@
+---
+- name: Remove old sizer
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/sizer@duclm278.github.io"
+    state: absent
+
+- name: Ensure having latest sizer
+  ansible.builtin.git: # noqa: latest
+    repo: "https://github.com/duclm278/sizer"
+    dest: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/sizer@duclm278.github.io"
+    depth: 1
+
+- name: Enable new sizer
+  ansible.builtin.shell: |
+    set -o pipefail
+    {{ ansible_user_dir }}/.local/bin/gext enable sizer@duclm278.github.io
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

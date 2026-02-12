@@ -16,9 +16,11 @@
     "flatpak",
     "freedesktop",
     "gext",
+    "ghostty",
     "goldendict",
     "gparted",
     "gpasswd",
+    "gschemas",
     "gsettings",
     "gstreamer",
     "ibus",
@@ -26,6 +28,7 @@
     "keyrings",
     "lazygit",
     "libglib",
+    "luchrioh",
     "materialshell",
     "miniconda",
     "mscorefonts",
@@ -43,6 +46,7 @@
     "ripgrep",
     "rustup",
     "sdkman",
+    "stuarthayhurst",
     "stunkymonkey",
     "stylua",
     "uaccess",
@@ -52,6 +56,7 @@
     "vtype",
     "xclip",
     "xremap",
-    "xsel"
+    "xsel",
+    "yazi"
   ]
 }
