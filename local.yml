@@ -69,7 +69,7 @@
     - role: calibre # calibre
     - role: copyq # copyq
     - role: flameshot # flameshot
-    - role: goldendict # goldendict
+    - role: goldendict # goldendict-ng
     - role: gparted # gparted
     - role: pavucontrol # pavucontrol
     - role: sublime # sublime-text

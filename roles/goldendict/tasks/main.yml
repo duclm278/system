@@ -1,8 +1,8 @@
 ---
-- name: Install goldendict
+- name: Install goldendict-ng
   become: true
   ansible.builtin.apt:
-    name: goldendict
+    name: goldendict-ng
     state: present
 
 - name: Ensure having autostart directory
