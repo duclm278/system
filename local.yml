@@ -1,5 +1,5 @@
 ---
-- name: Always
+- name: Main
   hosts: all
   gather_facts: true
   pre_tasks:
@@ -29,12 +29,10 @@
     - role: fd # fd
     - role: neovim # neovim, bob
     - role: tmux # tmux
-    - role: dotfiles # dotfiles, lazyvim
     - role: docker # docker, lazydocker
     - role: k8s # kubectl, helm
-    - role: copyq # copyq
-    - role: pavucontrol # pavucontrol
-  tags: [always]
+    - role: dotfiles # dotfiles, lazyvim
+  tags: [main]
 
 - name: GNOME
   hosts: all
@@ -49,11 +47,11 @@
     - role: gnome-extras # dconf-editor, gnome-shell-extension-manager, gnome-shell-extensions, gnome-tweaks
     - role: gnome-input # ibus-bamboo
     - role: gnome-keys
-    - role: gnome-ui
-    - role: dash-to-dock
-    - role: sizer
-    # - role: tactile
-    - role: alacritty-gnome # alacritty, python3-nautilus, nautilus-open-any-terminal
+    - role: gnome-appearance
+    - role: gnome-extensions # gnome-extensions
+    - role: gnome-x-sizer # sizer
+    # - role: alacritty-gnome # alacritty, python3-nautilus, nautilus-open-any-terminal
+    - role: ghostty-gnome # ghostty, python3-nautilus
     - role: xremap-gnome # xremap
   tags: [gnome]
 
@@ -69,10 +67,13 @@
     - role: btop # btop
     - role: caffeine # caffeine
     - role: calibre # calibre
+    - role: copyq # copyq
     - role: flameshot # flameshot
     - role: goldendict # goldendict
     - role: gparted # gparted
+    - role: pavucontrol # pavucontrol
     - role: sublime # sublime-text
+    - role: yazi # yazi
     - role: warp # cloudflare-warp
     - role: zoom # zoom
   tags: [others]
