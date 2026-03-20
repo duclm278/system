@@ -11,8 +11,8 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
-- name: Set text scaling factor to 1.17
-  ansible.builtin.command: gsettings set org.gnome.desktop.interface text-scaling-factor 1.17
+- name: Set text scaling factor to 1.25
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
   register: result
   ignore_errors: true
   changed_when: result.rc == 0
