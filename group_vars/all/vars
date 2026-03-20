@@ -10,6 +10,7 @@ gnome_extensions:
   - Battery-Health-Charging@maniacx.github.com
   - dash-to-dock@micxgx.gmail.com
   - just-perfection-desktop@just-perfection
-  - space-bar@luchrioh
+  # - space-bar@luchrioh
+  - run-or-raise@edvard.cz
   - tactile@lundal.io
   - Vitals@CoreCoding.com
