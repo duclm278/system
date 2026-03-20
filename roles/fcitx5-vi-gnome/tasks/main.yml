@@ -1,0 +1,52 @@
+---
+- name: Add fcitx5-lotus repository
+  become: true
+  ansible.builtin.deb822_repository:
+    name: fcitx5-lotus
+    types: deb
+    uris: "https://fcitx5-lotus.pages.dev/apt/{{ ansible_distribution_release }}"
+    suites: "{{ ansible_distribution_release }}"
+    components: main
+    architectures: amd64
+    signed_by: https://fcitx5-lotus.pages.dev/pubkey.gpg
+
+- name: Install fcitx5-lotus
+  become: true
+  ansible.builtin.apt:
+    name: fcitx5-lotus
+    state: present
+    update_cache: true
+
+- name: Save whoami before becoming root
+  ansible.builtin.command: whoami
+  register: whoami
+  changed_when: false
+
+- name: Enable fcitx5-lotus
+  become: true
+  ansible.builtin.systemd:
+    name: "fcitx5-lotus-server@{{ whoami.stdout }}.service"
+    state: started
+    enabled: true
+
+- name: Allow fcitx5 to display popup candidate window
+  ansible.builtin.shell: |
+    set -o pipefail
+    {{ ansible_user_dir }}/.local/bin/gext --filesystem install kimpanel@kde.org
+    {{ ansible_user_dir }}/.local/bin/gext enable kimpanel@kde.org
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Disable conflicting keybindings
+  ansible.builtin.shell: |
+    set -o pipefail
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "[]"
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "[]"
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
