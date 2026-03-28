@@ -18,6 +18,7 @@
     name:
       - xclip
       - xsel
+      - wl-clipboard
     state: present
 
 - name: Install stylua
