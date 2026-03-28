@@ -29,16 +29,16 @@
     state: started
     enabled: true
 
-- name: Allow fcitx5 to display popup candidate window
-  ansible.builtin.shell: |
-    set -o pipefail
-    {{ ansible_user_dir }}/.local/bin/gext --filesystem install kimpanel@kde.org
-    {{ ansible_user_dir }}/.local/bin/gext enable kimpanel@kde.org
-  args:
-    executable: /bin/bash
-  register: result
-  ignore_errors: true
-  changed_when: result.rc == 0
+# - name: Allow fcitx5 to display popup candidate window
+#   ansible.builtin.shell: |
+#     set -o pipefail
+#     {{ ansible_user_dir }}/.local/bin/gext --filesystem install kimpanel@kde.org
+#     {{ ansible_user_dir }}/.local/bin/gext enable kimpanel@kde.org
+#   args:
+#     executable: /bin/bash
+#   register: result
+#   ignore_errors: true
+#   changed_when: result.rc == 0
 
 - name: Disable conflicting keybindings
   ansible.builtin.shell: |
