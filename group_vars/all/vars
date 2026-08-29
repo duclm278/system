@@ -8,6 +8,7 @@ gnome_extensions:
   - advanced-alt-tab@G-dH.github.com
   - AlphabeticalAppGrid@stuarthayhurst
   - Battery-Health-Charging@maniacx.github.com
+  - Bluetooth-Battery-Meter@maniacx.github.com
   - dash-to-dock@micxgx.gmail.com
   - just-perfection-desktop@just-perfection
   # - space-bar@luchrioh
