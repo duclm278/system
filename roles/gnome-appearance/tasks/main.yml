@@ -29,6 +29,12 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
+- name: Center new windows by default
+  ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
 # - name: Set rautilus default sort order to type
 #   ansible.builtin.command: gsettings set org.gnome.nautilus.preferences default-sort-order 'type'
 #   register: result

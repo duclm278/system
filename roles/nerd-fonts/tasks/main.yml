@@ -1,17 +1,11 @@
 ---
-- name: Ensure having fonts directory
-  ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.local/share/fonts"
-    state: directory
-    mode: "0755"
-
 - name: Remove old fonts
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts/{{ item | trim }} Nerd Font"
     state: absent
   loop: "{{ fonts }}"
 
-- name: Ensure having font subdirectories
+- name: Ensure having font directories
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts/{{ item | trim }} Nerd Font"
     state: directory

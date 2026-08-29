@@ -1,12 +1,13 @@
 ---
-- name: Main
+# https://github.com/ansible/ansible/issues/57529#issuecomment-513143430
+- name: Facts
   hosts: all
   gather_facts: true
-  pre_tasks:
-    - name: Sync package indexes
-      become: true
-      ansible.builtin.apt:
-        update_cache: true
+  tags: [always]
+
+- name: Main
+  hosts: all
+  gather_facts: false
   roles:
     - role: python # python3, python3-pip, pipx, miniconda3
     - role: core # git, zip, unzip, curl, wget, xz-utils, python3-debian
@@ -36,12 +37,7 @@
 
 - name: GNOME
   hosts: all
-  gather_facts: true
-  pre_tasks:
-    - name: Sync package indexes
-      become: true
-      ansible.builtin.apt:
-        update_cache: true
+  gather_facts: false
   roles:
     - role: gnome-core # gsettings, gnome-extensions-cli
     - role: gnome-extras # dconf-editor, gnome-shell-extension-manager, gnome-shell-extensions, gnome-tweaks
@@ -51,19 +47,13 @@
     - role: gnome-x-sizer # sizer
     # - role: ibus-vi-gnome # ibus-bamboo
     - role: fcitx5-vi-gnome # fcitx5-lotus
-    # - role: alacritty-gnome # alacritty, python3-nautilus, nautilus-open-any-terminal
     - role: ghostty-gnome # ghostty, python3-nautilus
     - role: xremap-gnome # xremap
   tags: [gnome]
 
 - name: Others
   hosts: all
-  gather_facts: true
-  pre_tasks:
-    - name: Sync package indexes
-      become: true
-      ansible.builtin.apt:
-        update_cache: true
+  gather_facts: false
   roles:
     - role: btop # btop
     - role: calibre # calibre
@@ -71,6 +61,7 @@
     - role: flameshot # flameshot
     - role: goldendict # goldendict-ng
     - role: gparted # gparted
+    - role: kanata # kanata
     - role: pavucontrol # pavucontrol
     - role: sublime # sublime-text
     - role: yazi # yazi
