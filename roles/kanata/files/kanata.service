@@ -1,0 +1,6 @@
+[Unit]
+Description=kanata
+
+[Service]
+Restart=always
+ExecStart=/bin/sh -c "kanata --cfg %h/.config/kanata/config.kbd --no-wait"
