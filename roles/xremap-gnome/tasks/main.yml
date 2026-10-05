@@ -2,12 +2,22 @@
 - name: Install xremap
   ansible.builtin.shell: |
     set -o pipefail
-    {{ ansible_user_dir }}/.cargo/bin/cargo install xremap --features gnome
+    {{ ansible_facts['user_dir'] }}/.cargo/bin/cargo install xremap --features gnome
+  args:
+    creates: "{{ ansible_facts['user_dir'] }}/.cargo/bin/xremap"
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0
+
+- name: Grant permissions
+  become: true
+  ansible.builtin.shell: |
+    set -o pipefail
     sudo groupdel uinput 2>/dev/null || sudo groupadd --system uinput
     sudo usermod -aG input,uinput username
     echo 'KERNEL=="uinput", TAG+="uaccess", GROUP="uinput", MODE="0660", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/99-input.rules
   args:
-    creates: "{{ ansible_user_dir }}/.cargo/bin/xremap"
     executable: /bin/bash
   register: result
   ignore_errors: true
@@ -16,8 +26,8 @@
 - name: Allow xremap to fetch focused app name using D-Bus
   ansible.builtin.shell: |
     set -o pipefail
-    {{ ansible_user_dir }}/.local/bin/gext --filesystem install xremap@k0kubun.com
-    {{ ansible_user_dir }}/.local/bin/gext enable xremap@k0kubun.com
+    {{ ansible_facts['user_dir'] }}/.local/bin/gext --filesystem install xremap@k0kubun.com
+    {{ ansible_facts['user_dir'] }}/.local/bin/gext enable xremap@k0kubun.com
   args:
     executable: /bin/bash
   register: result
@@ -26,24 +36,24 @@
 
 - name: Ensure having systemd/user directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/systemd/user"
+    path: "{{ ansible_facts['user_dir'] }}/.config/systemd/user"
     state: directory
     mode: "0755"
 
 - name: Ensure having xremap.service
   ansible.builtin.copy:
     src: xremap.service
-    dest: "{{ ansible_user_dir }}/.config/systemd/user/xremap.service"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/systemd/user/xremap.service"
     mode: "0644"
 
 - name: Ensure having autostart directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/autostart"
+    path: "{{ ansible_facts['user_dir'] }}/.config/autostart"
     state: directory
     mode: "0755"
 
 - name: Ensure having xremap.desktop
   ansible.builtin.copy:
     src: xremap.desktop
-    dest: "{{ ansible_user_dir }}/.config/autostart/xremap.desktop"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/autostart/xremap.desktop"
     mode: "0644"

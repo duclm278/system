@@ -1,5 +1,12 @@
 ---
-- name: Install ghostty
+# - name: Install ghostty
+#   become: true
+#   ansible.builtin.apt:
+#     name: ghostty
+#     state: present
+
+- name: Install ghostty via PPA
+  become: true
   ansible.builtin.shell: |
     set -o pipefail
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
@@ -9,6 +16,26 @@
   register: result
   ignore_errors: true
   changed_when: result.rc == 0
+
+- name: Ensure having xdg-terminals directory
+  become: true
+  ansible.builtin.file:
+    path: /usr/share/xdg-terminals
+    state: directory
+    mode: "0755"
+
+- name: Ensure having xdg-terminals symlink
+  become: true
+  ansible.builtin.file:
+    src: /usr/share/applications/com.mitchellh.ghostty.desktop
+    dest: /usr/share/xdg-terminals/com.mitchellh.ghostty.desktop
+    state: link
+
+- name: Ensure having xdg-terminals.list
+  ansible.builtin.copy:
+    content: "com.mitchellh.ghostty.desktop\n"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/xdg-terminals.list"
+    mode: "0644"
 
 - name: Install python3-nautilus
   become: true

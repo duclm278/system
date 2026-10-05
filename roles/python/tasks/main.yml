@@ -8,24 +8,24 @@
       - pipx
     state: present
 
-- name: Create miniconda directory
+- name: Create miniforge directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/miniconda3"
+    path: "{{ ansible_facts['user_dir'] }}/miniforge3"
     state: directory
     mode: "0755"
 
-- name: Download miniconda installer
+- name: Download miniforge installer
   ansible.builtin.get_url:
-    url: "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-    dest: "{{ ansible_user_dir }}/miniconda3/miniconda.sh"
+    url: "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
+    dest: "{{ ansible_facts['user_dir'] }}/miniforge3/miniforge.sh"
     mode: "0755"
 
-- name: Run miniconda installer
-  ansible.builtin.command: "bash {{ ansible_user_dir }}/miniconda3/miniconda.sh -b -u -p {{ ansible_user_dir }}/miniconda3"
+- name: Run miniforge installer
+  ansible.builtin.command: "bash {{ ansible_facts['user_dir'] }}/miniforge3/miniforge.sh -b -u -p {{ ansible_facts['user_dir'] }}/miniforge3"
   args:
-    creates: "{{ ansible_user_dir }}/miniconda3/bin/conda"
+    creates: "{{ ansible_facts['user_dir'] }}/miniforge3/bin/forge"
 
-- name: Remove miniconda installer
+- name: Remove miniforge installer
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/miniconda3/miniconda.sh"
+    path: "{{ ansible_facts['user_dir'] }}/miniforge3/miniforge.sh"
     state: absent

@@ -10,7 +10,7 @@
     set -o pipefail
     pipx install --system-site-packages gnome-extensions-cli
   args:
-    creates: "{{ ansible_user_dir }}/.local/bin/gext"
+    creates: "{{ ansible_facts['user_dir'] }}/.local/bin/gext"
     executable: /bin/bash
   register: result
   ignore_errors: true

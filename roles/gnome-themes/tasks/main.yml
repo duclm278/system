@@ -11,11 +11,11 @@
   ignore_errors: true
   changed_when: result.rc == 0
 
-- name: Set text scaling factor to 1.25
-  ansible.builtin.command: gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
-  register: result
-  ignore_errors: true
-  changed_when: result.rc == 0
+# - name: Set text scaling factor to 1.2
+#   ansible.builtin.command: gsettings set org.gnome.desktop.interface text-scaling-factor 1.2
+#   register: result
+#   ignore_errors: true
+#   changed_when: result.rc == 0
 
 - name: Disable Ubuntu Dock
   ansible.builtin.command: gnome-extensions disable ubuntu-dock@ubuntu.com

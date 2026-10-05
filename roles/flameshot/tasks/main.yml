@@ -4,3 +4,19 @@
   ansible.builtin.apt:
     name: flameshot
     state: present
+
+# https://github.com/flameshot-org/flameshot/issues/4463
+- name: Grant screenshot permission
+  ansible.builtin.shell: |
+    set -o pipefail
+    dbus-send --session --print-reply=literal \
+      --dest=org.freedesktop.impl.portal.PermissionStore \
+      /org/freedesktop/impl/portal/PermissionStore \
+      org.freedesktop.impl.portal.PermissionStore.SetPermission \
+      string:'screenshot' boolean:true string:'screenshot' \
+      string:'org.flameshot.Flameshot' array:string:'yes'
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+  changed_when: result.rc == 0

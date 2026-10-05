@@ -1,6 +1,6 @@
 ---
 dotfiles_repo: https://github.com/duclm278/dotfiles
-dotfiles_dest: "{{ ansible_user_dir }}/.dotfiles"
+dotfiles_dest: "{{ ansible_facts['user_dir'] }}/.dotfiles"
 # See: https://github.com/ryanoasis/nerd-fonts/releases/latest
 fonts:
   - JetBrainsMono
@@ -11,6 +11,7 @@ gnome_extensions:
   - Bluetooth-Battery-Meter@maniacx.github.com
   - dash-to-dock@micxgx.gmail.com
   - just-perfection-desktop@just-perfection
+  - mouse-follows-focus@crisidev.org
   # - space-bar@luchrioh
   - run-or-raise@edvard.cz
   - tactile@lundal.io

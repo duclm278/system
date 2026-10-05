@@ -5,7 +5,7 @@
     name: cloudflare-warp
     types: deb
     uris: https://pkg.cloudflareclient.com
-    suites: "{{ ansible_distribution_release }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
     # suites: noble
     components: main
     architectures: amd64

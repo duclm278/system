@@ -17,3 +17,12 @@
       - xz-utils
       - python3-debian
     state: present
+
+- name: Ensure support for clipboard
+  become: true
+  ansible.builtin.apt:
+    name:
+      - xclip
+      - xsel
+      - wl-clipboard
+    state: present

@@ -2,9 +2,9 @@
 - name: Install extensions
   ansible.builtin.shell: |
     set -o pipefail
-    {{ ansible_user_dir }}/.local/bin/gext --filesystem install {{ item }}
+    {{ ansible_facts['user_dir'] }}/.local/bin/gext --filesystem install {{ item }}
   args:
-    creates: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/{{ item }}"
+    creates: "{{ ansible_facts['user_dir'] }}/.local/share/gnome-shell/extensions/{{ item }}"
     executable: /bin/bash
   register: result
   ignore_errors: true
@@ -14,9 +14,9 @@
 - name: Compile schemas
   ansible.builtin.shell: |
     set -o pipefail
-    glib-compile-schemas {{ ansible_user_dir }}/.local/share/gnome-shell/extensions/{{ item }}/schemas/
+    glib-compile-schemas {{ ansible_facts['user_dir'] }}/.local/share/gnome-shell/extensions/{{ item }}/schemas/
   args:
-    creates: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/{{ item }}/schemas/gschemas.compiled"
+    creates: "{{ ansible_facts['user_dir'] }}/.local/share/gnome-shell/extensions/{{ item }}/schemas/gschemas.compiled"
     executable: /bin/bash
   register: result
   ignore_errors: true
@@ -26,7 +26,7 @@
 - name: Enable extensions
   ansible.builtin.shell: |
     set -o pipefail
-    {{ ansible_user_dir }}/.local/bin/gext enable {{ item }}
+    {{ ansible_facts['user_dir'] }}/.local/bin/gext enable {{ item }}
   args:
     executable: /bin/bash
   register: result
@@ -36,19 +36,19 @@
 
 - name: Ensure having config directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/gnome"
+    path: "{{ ansible_facts['user_dir'] }}/.config/gnome"
     state: directory
     mode: "0755"
 
 - name: Check if extensions.ini exists
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.config/gnome/extensions.ini"
+    path: "{{ ansible_facts['user_dir'] }}/.config/gnome/extensions.ini"
   register: extensions_ini
 
 - name: Load extension settings
   ansible.builtin.shell: |
-    # dconf dump /org/gnome/shell/extensions/ > {{ ansible_user_dir }}/.config/gnome/extensions.ini
-    dconf load /org/gnome/shell/extensions/ < {{ ansible_user_dir }}/.config/gnome/extensions.ini
+    # dconf dump /org/gnome/shell/extensions/ > {{ ansible_facts['user_dir'] }}/.config/gnome/extensions.ini
+    dconf load /org/gnome/shell/extensions/ < {{ ansible_facts['user_dir'] }}/.config/gnome/extensions.ini
   args:
     executable: /bin/bash
   register: result

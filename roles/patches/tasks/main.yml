@@ -1,6 +1,6 @@
 ---
 - name: Fix 22.04
-  when: ansible_distribution_version == "22.04"
+  when: ansible_facts['distribution_version'] == "22.04"
   block:
     - name: "[22.04] Fix nvidia/egl-wayland"
       become: true

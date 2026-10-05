@@ -4,8 +4,8 @@
   ansible.builtin.deb822_repository:
     name: fcitx5-lotus
     types: deb
-    uris: "https://fcitx5-lotus.pages.dev/apt/{{ ansible_distribution_release }}"
-    suites: "{{ ansible_distribution_release }}"
+    uris: "https://fcitx5-lotus.pages.dev/apt/{{ ansible_facts['distribution_release'] }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
     components: main
     architectures: amd64
     signed_by: https://fcitx5-lotus.pages.dev/pubkey.gpg
@@ -32,8 +32,8 @@
 # - name: Allow fcitx5 to display popup candidate window
 #   ansible.builtin.shell: |
 #     set -o pipefail
-#     {{ ansible_user_dir }}/.local/bin/gext --filesystem install kimpanel@kde.org
-#     {{ ansible_user_dir }}/.local/bin/gext enable kimpanel@kde.org
+#     {{ ansible_facts['user_dir'] }}/.local/bin/gext --filesystem install kimpanel@kde.org
+#     {{ ansible_facts['user_dir'] }}/.local/bin/gext enable kimpanel@kde.org
 #   args:
 #     executable: /bin/bash
 #   register: result

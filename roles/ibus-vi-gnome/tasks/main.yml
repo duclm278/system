@@ -5,7 +5,7 @@
     name: ibus-bamboo
     types: deb
     uris: https://ppa.launchpadcontent.net/bamboo-engine/ibus-bamboo/ubuntu
-    suites: "{{ ansible_distribution_release }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
     components: main
     signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x5AD2E0B68A0409AD907D462D36ED424E9659D014
 
